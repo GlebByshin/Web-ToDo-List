@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Inter:400,600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #f7f8fa;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', Arial, sans-serif;
+        }
+        .container {
+            background: #fff;
+            padding: 2.5rem 2rem;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            color: #222;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background: #f7f8fa;
+            font-size: 1rem;
+            transition: border 0.2s;
+        }
+        input:focus {
+            border: 1.5px solid #6c63ff;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 0.9rem;
+            background: #6c63ff;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #554ee2;
+        }
+        .link {
+            display: block;
+            margin-top: 1.2rem;
+            color: #6c63ff;
+            text-decoration: none;
+            font-size: 0.97rem;
+        }
+        .link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Вход</h2>
+    <form method="post" action="/add" th:object="${user}">
+        <label for="email">Почта:</label>
+        <input type="text" id="email" th:field="*{email}" />
+        <label for="password">Пароль:</label>
+        <input type="text" id="password" th:field="*{password}" />
+        <button type="submit">Войти</button>
+    </form>
+
+    <a class="link" href="/register">Нет аккаунта?</a>
+</div>
+</body>
+</html>

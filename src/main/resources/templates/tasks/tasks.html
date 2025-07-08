@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Задачи</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Inter:400,600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #f7f8fa;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            font-family: 'Inter', Arial, sans-serif;
+        }
+        .container {
+            background: #fff;
+            margin-top: 3rem;
+            padding: 2.5rem 2rem;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+            width: 100%;
+            max-width: 500px;
+        }
+        h2 {
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            color: #222;
+            text-align: center;
+        }
+        .task-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            background: #f7f8fa;
+            border-radius: 10px;
+            margin-bottom: 1.1rem;
+            padding: 1.1rem 1rem;
+            transition: box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .task-item:hover {
+            box-shadow: 0 4px 16px rgba(108,99,255,0.08);
+        }
+        .task-info {
+            flex: 1;
+            cursor: pointer;
+        }
+        .task-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.3rem;
+            font-size: 1.08rem;
+        }
+        .task-desc {
+            color: #666;
+            font-size: 0.97rem;
+        }
+        .task-actions {
+            margin-left: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+        .task-checkbox {
+            width: 20px;
+            height: 20px;
+            accent-color: #6c63ff;
+        }
+        a.task-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            width: 100%;
+        }
+    </style>
+    <style>
+        .add-task-btn {
+            display: block;
+            width: 100%;
+            margin-bottom: 1.5rem;
+            padding: 0.85rem 0;
+            background: #6c63ff;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .add-task-btn:hover {
+            background: #554ee2;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Мои задачи</h2>
+    <a href="/newTask" class="add-task-btn">+ Добавить задачу</a>
+    <ul class="task-list">
+        <!-- Пример задачи, заменить на th:each для динамики -->
+
+        <div th:each="task : ${tasks}">
+            <li class="task-item">
+                <a class="task-link" href="/tasks/1">
+                    <div class="task-info">
+                        <div class="task-title" th:text="${task.title}"></div>
+                        <div class="task-desc" th:text="${task.description}"></div>
+                    </div>
+                </a>
+                <div class="task-actions">
+                    <input type="checkbox" class="task-checkbox" checked />
+                </div>
+            </li>
+        </div>
+
+        <!-- Конец примеров -->
+        <!--
+        <li class="task-item" th:each="task : ${tasks}">
+            <a class="task-link" th:href="@{'/tasks/' + ${task.id}}">
+                <div class="task-info">
+                    <div class="task-title" th:text="${task.title}"></div>
+                    <div class="task-desc" th:text="${task.description}"></div>
+                </div>
+            </a>
+            <div class="task-actions">
+                <input type="checkbox" class="task-checkbox" th:checked="${task.done}" />
+            </div>
+        </li>
+        -->
+    </ul>
+</div>
+</body>
+</html>
