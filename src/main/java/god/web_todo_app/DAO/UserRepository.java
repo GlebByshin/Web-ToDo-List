@@ -41,6 +41,7 @@ public class UserRepository {
         try {
             jdbcTemplate.query(sql, (rs, rowNum) -> {
                 Task task = new Task();
+                task.setId(rs.getInt("id")); // <-- добавьте эту строку
                 task.setTitle(rs.getString("name"));
                 task.setDescription(rs.getString("desc"));
                 task.setCompleted(rs.getBoolean("completed"));
@@ -53,11 +54,13 @@ public class UserRepository {
         return tasks;
     }
 
-    public static void deleteTask(Task task) {
+    public  void markTaskAsCompleted(Task task) {
         try {
-            String sql = "delete from tasks where id = ?";
+            String sql = "UPDATE tasks SET completed = true WHERE id = ?";
             jdbcTemplate.update(sql, task.getId());
-        }catch (Exception e) {
+            System.out.println("Updated task with id: " + task.getId()+task.getTitle());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

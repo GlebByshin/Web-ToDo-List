@@ -5,10 +5,7 @@ import god.web_todo_app.models.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class TaskController {
@@ -35,8 +32,12 @@ public class TaskController {
     }
 
     @PostMapping("/completeTask")
-    public String completeTask(@ModelAttribute("task") Task task,Model model) {
-        UserRepository.deleteTask(task);
+    public String completeTask(@RequestParam("id") int id,
+                               @RequestParam("completed") boolean completed) {
+        Task task = new Task(); // создать вручную, если не получаем через @ModelAttribute
+        task.setId(id);
+        task.setCompleted(completed);
+        userRepository.markTaskAsCompleted(task);
         return "redirect:/tasks";
     }
 }

@@ -13,9 +13,6 @@ public class test {
 
     @Test
     void testGetTasks() {
-        System.out.println("Testing getTasks method:");
-        System.out.println(userRepository.getTasks());
-        System.out.println("Number of tasks: " + userRepository.getTasks().size());
-        // Можно добавить assert'ы для проверки содержимого списка задач
+        userRepository.markTaskAsCompleted(userRepository.getTasks().get(3));
     }
 }

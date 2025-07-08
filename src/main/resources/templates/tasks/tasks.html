@@ -105,9 +105,8 @@
     <h2>Мои задачи</h2>
     <a href="/newTask" class="add-task-btn">+ Добавить задачу</a>
     <ul class="task-list">
-        <!-- Пример задачи, заменить на th:each для динамики -->
 
-        <div th:each="task : ${tasks}">
+        <div th:each="task : ${tasks}" th:if="${task.completed == false}">
             <li class="task-item">
                 <a class="task-link" href="/tasks/1">
                     <div class="task-info">
@@ -116,25 +115,15 @@
                     </div>
                 </a>
                 <div class="task-actions">
-                    <input type="checkbox" class="task-checkbox" checked />
+                    <form method="post" action="/completeTask">
+                        <input type="hidden" name="id" th:value="${task.id}" />
+                        <input type="hidden" name="completed" value="true" />
+                        <button type="submit">✔</button>
+                    </form>
                 </div>
             </li>
         </div>
 
-        <!-- Конец примеров -->
-        <!--
-        <li class="task-item" th:each="task : ${tasks}">
-            <a class="task-link" th:href="@{'/tasks/' + ${task.id}}">
-                <div class="task-info">
-                    <div class="task-title" th:text="${task.title}"></div>
-                    <div class="task-desc" th:text="${task.description}"></div>
-                </div>
-            </a>
-            <div class="task-actions">
-                <input type="checkbox" class="task-checkbox" th:checked="${task.done}" />
-            </div>
-        </li>
-        -->
     </ul>
 </div>
 </body>
