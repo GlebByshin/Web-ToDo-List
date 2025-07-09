@@ -35,4 +35,5 @@ public class AuthController {
         if (userRepository.saveUser(user.getEmail(), user.getPassword(), user.getFirstName())) return "redirect:/tasks";
         else return "auth/register";
     }
+    //gfdfgdfg
 }
