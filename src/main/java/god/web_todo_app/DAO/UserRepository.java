@@ -35,16 +35,17 @@ public class UserRepository {
     }
 
 
-    public ArrayList<Task> getTasks() {
-        String sql = "SELECT * FROM tasks";
+    public ArrayList<Task> getTasks(int userId) {
+        String sql = "SELECT * FROM tasks WHERE ownerID = ?";
         ArrayList<Task> tasks = new ArrayList<>();
         try {
-            jdbcTemplate.query(sql, (rs, rowNum) -> {
+            jdbcTemplate.query(sql, new Object[]{userId}, (rs, rowNum) -> {
                 Task task = new Task();
-                task.setId(rs.getInt("id")); // <-- добавьте эту строку
+                task.setId(rs.getInt("id"));
                 task.setTitle(rs.getString("name"));
                 task.setDescription(rs.getString("desc"));
                 task.setCompleted(rs.getBoolean("completed"));
+                task.setOwnerId(rs.getInt("ownerID"));
                 tasks.add(task);
                 return task;
             });
@@ -61,6 +62,16 @@ public class UserRepository {
             System.out.println("Updated task with id: " + task.getId()+task.getTitle());
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public static int getUserIdByEmail(String email) {
+        String sql = "SELECT userId FROM users WHERE email = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{email}, Integer.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1; // Возвращаем -1, если пользователь не найден
         }
     }
 }
