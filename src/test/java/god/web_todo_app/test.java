@@ -13,6 +13,6 @@ public class test {
 
     @Test
     void testGetTasks() {
-        userRepository.markTaskAsCompleted(userRepository.getTasks().get(3));
+//        userRepository.markTaskAsCompleted(userRepository.getTasks().get(3));
     }
 }

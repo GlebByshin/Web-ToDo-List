@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class AuthController {
+    private static int UserId;
 
     @Autowired
     UserRepository userRepository;
@@ -32,8 +33,16 @@ public class AuthController {
 
     @PostMapping("/addUser")
     public String login(@ModelAttribute("user")User user, Model model) {
-        if (userRepository.saveUser(user.getEmail(), user.getPassword(), user.getFirstName())) return "redirect:/tasks";
-        else return "auth/register";
+        boolean isValid = userRepository.saveUser(user.getEmail(), user.getPassword(), user.getFirstName());
+        UserId = UserRepository.getUserIdByEmail(user.getEmail());
+        System.out.println("UserId: " + UserId);
+
+        if (isValid)
+            return "redirect:/tasks";
+        else
+            return "auth/register";
     }
-    //gfdfgdfgqasd
+    public static int getUserId() {
+        return UserId;
+    }
 }
